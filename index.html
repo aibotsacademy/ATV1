@@ -1070,7 +1070,7 @@ const AIRLINES = [
   {code:"4M", name:"LATAM Argentina",        iata:"4M", logo:"✈"},
   {code:"OT", name:"Otro / No listado",      iata:"",   logo:"✈"},
 ];
-const OFFICERS = ["C. Ramírez","M. Solano","D. Vargas","J. Mora","R. Jiménez","P. Castro","A. Núñez"];
+const OFFICERS = []; // populated from real data
 const FC = {green:"var(--neon)",amber:"var(--amber)",red:"var(--red)"};
 const FB = {green:"rgba(57,255,20,.08)",amber:"rgba(255,179,0,.08)",red:"rgba(255,23,68,.08)"};
 const CHIP_CLS = {green:"chip-green",amber:"chip-amber",red:"chip-red"};
@@ -1096,19 +1096,8 @@ let state = {
   camMode: "zone",       // "zone"|"badge-pre"|"badge-late"|"access"|"ramp"
   badgeDirection: null,  // "in" | "out"  — set before camera opens
 };
-let reports = [
-  {id:"RPT-0891",flight:"UA891", zone:"Lavabo",        finding:"susp",   officer:"C. Ramírez",time:"13:42",note:"Bolso no identificado detrás del panel del espejo. Se solicitó ETD.",resolved:false,photo:null},
-  {id:"RPT-0890",flight:"CM201", zone:"Cabina",         finding:"clear",  officer:"M. Solano", time:"13:15",note:"Revisión completa de cabina. Todo el equipo verificado.",resolved:true, photo:null},
-  {id:"RPT-0889",flight:"AV382", zone:"Manifiesto de Carga",  finding:"cargo",  officer:"D. Vargas", time:"12:58",note:"2 paquetes sin registrar. Vuelo puesto en ESPERA.",  resolved:false,photo:null},
-  {id:"RPT-0888",flight:"AV382", zone:"Compartimentos Superiores",   finding:"unauth", officer:"D. Vargas", time:"12:51",note:"Mochila sin etiqueta de abordaje. Removida y en cuarentena.",   resolved:true, photo:null},
-  {id:"RPT-0887",flight:"AA2341",zone:"Equipo de Emergencia",finding:"missing",officer:"J. Mora",   time:"11:30",note:"Chaleco salvavidas faltante en asiento 22C. Aerolínea notificada.",       resolved:true, photo:null},
-];
-let liveFeed = [
-  {type:"ok",  msg:"CM201 liberado. Abordaje autorizado.",      officer:"M. Solano",  time:"13:15"},
-  {type:"warn",msg:"Revisión secundaria CP-2 — pasajero UA891.",    officer:"C. Ramírez", time:"13:42"},
-  {type:"crit",msg:"AV382 BODEGA RETENIDA — 2 paquetes faltantes.",   officer:"D. Vargas",  time:"12:58"},
-  {type:"info",msg:"Patrulla de perímetro completa — sin novedades.",    officer:"A. Núñez",   time:"12:30"},
-];
+let reports = []; // populated from real inspection data
+let liveFeed = []; // populated in real time
 
 // ═══ HELPERS ══════════════════════════════════════════════
 const t12 = () => new Date().toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"});
@@ -3138,9 +3127,8 @@ function startAdminClock() {
 
 function startLiveFeed() {
   const pool=[
-    {type:"info",msg:"Escaneo de credencial OK — puerta de plataforma 7B.",officer:"J. Mora"},
-    {type:"ok",  msg:"Barrido K-9 completo — carga despejada.", officer:"R. Jiménez"},
-    {type:"info",msg:"Grupo CCTV Bravo — todo en línea.", officer:"SYSTEM"},
+    {type:"info",msg:"Sistema AVSEC PRO activo — en espera de operaciones.",officer:"SYSTEM"},
+    {type:"ok",  msg:"Canal operacional listo.", officer:"SYSTEM"},
   ];
   setInterval(()=>{
     const m=pool[Math.floor(Math.random()*pool.length)];
@@ -3177,7 +3165,7 @@ function buildAdmin() {
   } else banner.style.display="none";
 
   const statsData=[
-    {e:"✈",v:0, l:"VUELOS TOTALES",c:"var(--cyan)"},
+    {e:"✈",v:"—", l:"VUELOS TOTALES",c:"var(--cyan)"},
     {e:"✓",v:cleared,         l:"LIBERADO",       c:"var(--neon)"},
     {e:"⌛",v:pending,        l:"PENDIENTE",       c:"var(--amber)"},
     {e:"⚠",v:openRpts.length, l:"REPORTES ABIERTOS", c:"var(--red)"},
@@ -3193,6 +3181,7 @@ function buildAdmin() {
   fp.innerHTML = `<div style="padding:12px 18px;border-bottom:1px solid rgba(0,229,255,.1);display:flex;align-items:center;justify-content:space-between">
     <div style="font-family:var(--head);font-size:13px;color:var(--cyan);letter-spacing:.08em">COLA DE VUELOS</div>
     <button class="hex-btn" style="padding:5px 10px;font-size:9px" onclick="adminTab(document.querySelector('[data-tab=flights]'),'flights')"><span>ALL →</span></button></div>`+
+  ([]||[]).length===0?`<div style="padding:24px 18px;text-align:center;font-family:var(--mono);font-size:10px;color:var(--dim);line-height:1.8">Sin vuelos activos<br><span style="font-size:9px">Inicie una operación desde la pantalla del oficial</span></div>`:
   [].map((f,i)=>`
     <div style="padding:12px 18px;border-bottom:1px solid rgba(0,229,255,.06);display:flex;align-items:center;gap:12px;background:transparent">
       <div style="width:30px;height:30px;border-radius:6px;background:${f.st==="alert"?"rgba(255,23,68,.15)":"rgba(0,229,255,.08)"};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">✈</div>
@@ -3207,7 +3196,8 @@ function buildAdmin() {
     </div>`).join("");
 
   $("admin-officers-panel").innerHTML = `<div style="padding:12px 16px;border-bottom:1px solid rgba(0,229,255,.1);font-family:var(--head);font-size:13px;color:var(--cyan);letter-spacing:.08em">EN SERVICIO</div>`+
-  OFFICERS.map((o,i)=>`
+  `<div style="padding:20px 16px;text-align:center;font-family:var(--mono);font-size:10px;color:var(--dim)">Sin oficiales activos</div>`+
+  [].map((o,i)=>`
     <div style="padding:10px 16px;border-bottom:${i<OFFICERS.length-1?"1px solid rgba(0,229,255,.06)":"none"};display:flex;align-items:center;gap:10px">
       <div style="width:7px;height:7px;border-radius:50%;background:${i<5?"var(--neon)":"var(--dim)"};box-shadow:${i<5?"0 0 5px var(--neon)":"none"};flex-shrink:0;${i<5?"animation:glow-pulse 3s infinite":""}"></div>
       <span style="font-size:12px;flex:1">${o}</span>
@@ -3347,22 +3337,32 @@ const ROLE_CFG = {
   const cardOficial = $("card-oficial");
   const cardAdmin   = $("card-admin");
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const fromHistorial = urlParams.get("nuevo") === "1" || urlParams.get("recover") === "1";
+
   if (role === "oficial") {
-    // Oficial: can only access officer mode, admin card hidden
-    if (cardAdmin) { cardAdmin.style.display = "none"; }
-    // Auto-route to officer home (skip select screen)
+    // Oficial: hide admin card, always go to officer home
+    if (cardAdmin) cardAdmin.style.display = "none";
     showScreen("s-ohome");
+
   } else if (role === "supervisor") {
-    // Supervisor: both cards visible, default landing = select
-    // (can supervise and inspect)
+    if (fromHistorial) {
+      // Coming from historial "Nuevo" → officer home directly
+      showScreen("s-ohome");
+    }
+    // else: show s-select so supervisor can choose mode
+
   } else if (role === "admin") {
-    // Admin: default to admin dashboard, still can visit select
-    buildAdmin(); showScreen("s-admin"); startAdminClock(); startLiveFeed();
+    if (fromHistorial) {
+      // Coming from historial "Nuevo" → officer home directly
+      showScreen("s-ohome");
+    } else {
+      // Normal entry → admin dashboard
+      buildAdmin(); showScreen("s-admin"); startAdminClock(); startLiveFeed();
+    }
   }
-  // For supervisor: just show the select screen as normal
 
   // ── Recovery mode ─────────────────────────────────────────
-  const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get("recover") === "1") {
     const recovery = localStorage.getItem("avsec_recovery");
     if (recovery) {
