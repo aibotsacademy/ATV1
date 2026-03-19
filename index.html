@@ -159,82 +159,123 @@ input,select,textarea{font-family:var(--body);font-size:14px}
 .admin-tab{display:none}
 .admin-tab.active{display:block}
 
-/* ══════════════════════════════════════════════════
-   MOBILE RESPONSIVE — AVSEC PRO
-   Base: mobile-first adjustments for screens ≤430px
-   ══════════════════════════════════════════════════ */
 
-/* -- Global touch targets & inputs -- */
-@media(max-width:430px){
-  /* Ensure all inputs/selects are large enough */
-  input,select,textarea{font-size:16px!important} /* prevents iOS zoom */
+/* ══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — AVSEC PRO  (injected)
+   ══════════════════════════════════════════════════════════════ */
 
-  /* Hex buttons — full touch target */
-  .hex-btn,.hex-solid{min-height:44px;font-size:11px!important}
+/* ── iOS zoom prevention on inputs ── */
+input, select, textarea { font-size:16px !important; }
 
-  /* Screens fill viewport properly */
-  .screen{min-height:100dvh}
+/* ── Touch targets ── */
+.hex-btn, .hex-solid { min-height:44px; }
+button { -webkit-tap-highlight-color: transparent; }
+
+/* ── dvh for modern browsers ── */
+.screen { min-height: 100dvh; }
+
+/* ── Safe area (notch/home indicator) ── */
+.screen > div:last-child,
+#cam-modal > div:last-child {
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 0px);
+}
+
+/* ════════════════════════════
+   ≤ 430px  (all phones)
+   ════════════════════════════ */
+@media (max-width: 430px) {
 
   /* ── s-select ── */
-  #s-select{padding:16px 18px!important;gap:16px!important}
+  #s-select  { padding: 14px 16px !important; gap: 14px !important; }
+  #s-ohome   { padding: 16px !important; gap: 14px !important; }
+  #s-opmode  { padding: 12px 14px !important; gap: 10px !important; }
 
-  /* Flight/mode cards — compact */
-  .cyf.flight-card{padding:13px 14px!important;gap:12px!important}
-  .cyf.flight-card .hex-ring{width:44px!important;height:44px!important;flex-shrink:0!important}
-  .cyf.flight-card .hex-ring .ri{font-size:17px!important}
+  /* ── Flight / mode card tiles ── */
+  .cyf.flight-card { padding: 12px 13px !important; gap: 10px !important; }
+  .cyf.flight-card .hex-ring { width:42px !important; height:42px !important; flex-shrink:0 !important; }
+  .cyf.flight-card .hex-ring .ri { font-size:16px !important; }
 
-  /* ── s-ohome ── */
-  #s-ohome{padding:18px!important;gap:16px!important}
+  /* ── Flight form ── */
+  #s-flight .screen-header-pad { padding: 10px 12px !important; }
 
-  /* ── s-opmode ── */
-  #s-opmode{padding:16px!important;gap:14px!important}
+  /* airline grid → 3 cols on phone */
+  #airline-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 6px !important; }
 
-  /* Admin tab buttons — compact */
-  .tab-btn{padding:5px 9px!important;font-size:9px!important;letter-spacing:.04em!important}
+  /* flight number input */
+  #flight-number-input { font-size: 20px !important; }
 
-  /* Zone grid — single column on very small screens */
-  #zone-grid{grid-template-columns:1fr 1fr!important}
+  /* ── Inspect screen ── */
+  #timer-display { font-size: 18px !important; }
+  #insp-airline  { font-size: 13px !important; }
+  #insp-gate     { font-size: 16px !important; }
+  #insp-route    { font-size: 10px !important; }
 
-  /* Admin stats grid — 2 cols */
-  #admin-stats{grid-template-columns:repeat(2,1fr)!important}
+  /* zone grid: 2 cols, tighter */
+  #zone-grid { gap: 6px !important; padding: 8px !important; }
 
-  /* Admin overview grid fix */
-  #admin-flights-panel,#admin-officers-panel{min-width:0}
+  /* ── Zone detail ── */
+  #zone-label { font-size: 15px !important; }
+  #zone-sub   { font-size: 9px !important; }
 
-  /* OCR fields smaller */
-  #ocr-result{font-size:10px!important}
+  /* ── Access / Ramp headers ── */
+  #access-fid, #ramp-fid { font-size: 10px !important; }
+  #access-gate, #ramp-timer { font-size: 16px !important; }
 
-  /* Ramp tabs compact */
-  #rtab-cred,#rtab-fuel,#rtab-push{padding:5px 8px!important;font-size:9px!important}
+  /* ramp tabs */
+  #rtab-cred, #rtab-fuel, #rtab-push { padding: 4px 7px !important; font-size: 8.5px !important; }
 
-  /* Badge log cards compact */
-  #access-log > div,#ramp-badge-log > div{margin-bottom:6px}
+  /* ── Done / OpDone ── */
+  #done-title, #opdone-title { font-size: 15px !important; }
+  #done-sub,   #opdone-sub   { font-size: 9px !important; }
 
-  /* Camera modal full screen */
-  #cam-modal{padding:0!important}
+  /* KPI cards smaller */
+  #done-kpi, #opdone-kpi {
+    grid-template-columns: repeat(auto-fill, minmax(80px,1fr)) !important;
+    gap: 6px !important;
+  }
+
+  /* ── Admin ── */
+  #admin-stats { grid-template-columns: repeat(2,1fr) !important; gap:8px !important; }
+  .tab-btn { padding: 5px 8px !important; font-size: 9px !important; letter-spacing: .04em !important; }
+  #admin-flights-panel,
+  #admin-officers-panel { min-width: 0; }
+
+  /* ── Camera modal ── */
+  #cam-modal > div:nth-child(2) { padding: 10px !important; gap: 10px !important; }
+
+  /* ── Settings ── */
+  #s-settings > div:nth-child(2) { padding: 12px !important; gap: 14px !important; }
+
+  /* ── Historial button everywhere ── */
+  .hist-btn { padding: 7px 11px !important; font-size: 8px !important; }
 }
 
-/* Very small phones */
-@media(max-width:360px){
-  .tab-btn{padding:4px 7px!important;font-size:8px!important}
-  #zone-grid{gap:7px!important}
-  .cyf.flight-card{gap:10px!important;padding:11px 12px!important}
+/* ════════════════════════════
+   ≤ 360px  (very small phones)
+   ════════════════════════════ */
+@media (max-width: 360px) {
+  .cyf.flight-card { padding: 10px 11px !important; gap: 8px !important; }
+  #airline-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 5px !important; }
+  .tab-btn { padding: 4px 6px !important; font-size: 8px !important; }
+  #zone-grid { grid-template-columns: 1fr 1fr !important; gap: 5px !important; }
+  #done-title, #opdone-title { font-size: 13px !important; }
 }
 
-/* Short screens (landscape mode, or small phones) */
-@media(max-height:640px){
-  #s-select,#s-ohome{gap:10px!important;padding:12px 16px!important}
-  #s-ohome .hex-ring{width:56px!important;height:56px!important}
-  #s-ohome .hex-ring .ri{font-size:22px!important}
-  #s-select .hex-ring{width:clamp(56px,14vw,90px)!important;height:clamp(56px,14vw,90px)!important}
-  .ticker-wrap{display:none} /* hide ticker on short screens */
+/* ════════════════════════════
+   Short screens / landscape
+   ════════════════════════════ */
+@media (max-height: 640px) {
+  #s-select, #s-ohome { gap: 10px !important; padding: 10px 16px !important; }
+  #s-ohome .hex-ring  { width: 54px !important; height: 54px !important; }
+  #s-ohome .hex-ring .ri { font-size: 20px !important; }
+  #s-select .hex-ring { width: clamp(50px,13vw,80px) !important; height: clamp(50px,13vw,80px) !important; }
+  .ticker-wrap { display: none !important; }
 }
 
-/* Landscape phones */
-@media(max-height:500px) and (orientation:landscape){
-  .screen{overflow-y:auto}
-  #s-select,#s-ohome,#s-opmode{padding:10px 20px!important;gap:8px!important}
-  .ticker-wrap{display:none}
+@media (max-height: 500px) and (orientation: landscape) {
+  .screen { overflow-y: auto; }
+  #s-select, #s-ohome, #s-opmode { padding: 8px 18px !important; gap: 8px !important; }
+  .ticker-wrap { display: none !important; }
 }
 </style>
 </head>
@@ -396,11 +437,20 @@ input,select,textarea{font-family:var(--body);font-size:14px}
       <div class="hex-ring" style="width:54px;height:54px;flex-shrink:0"><div class="r1" style="border-top-color:var(--amber);border-right-color:var(--amber)"></div><div class="r2" style="border-bottom-color:var(--amber);border-left-color:var(--amber)"></div><div class="ri" style="font-size:22px">🚧</div></div>
       <div>
         <div style="font-family:var(--head);font-size:clamp(11px,3.5vw,14px);font-weight:700;letter-spacing:.04em;color:var(--amber);margin-bottom:3px">RAMPA</div>
-        <div style="font-family:var(--body);font-size:clamp(10px,2.8vw,11px);color:var(--t3);line-height:1.4">Credenciales + reporte de gaseo de aeronave y registro de pushback.</div>
+        <div style="font-family:var(--body);font-size:clamp(10px,2.8vw,11px);color:var(--t3);line-height:1.4">Credenciales · Checkpoint 1 Puente/Pasajeros · Checkpoint 2 Bodega/Gaseo.</div>
       </div>
     </div>
 
-    <button class="hex-btn" style="width:100%;padding:11px;font-size:10px;margin-top:2px" onclick="goFlight()"><span>← CAMBIAR VUELO</span></button>
+    <div style="display:flex;gap:8px;width:100%;margin-top:4px">
+      <button class="hex-btn" style="flex:1;padding:11px;font-size:10px" onclick="goFlight()"><span>← CAMBIAR VUELO</span></button>
+      <button onclick="window.location.href='historial.html'"
+        style="flex-shrink:0;padding:0 12px;height:42px;border-radius:6px;background:rgba(255,179,0,.1);
+          border:1px solid rgba(255,179,0,.28);color:var(--amber);font-family:var(--mono);
+          font-size:9px;cursor:pointer;display:flex;align-items:center;gap:4px;
+          letter-spacing:.04em;transition:all .18s"
+        onmouseover="this.style.background='rgba(255,179,0,.22)'"
+        onmouseout="this.style.background='rgba(255,179,0,.1)'">📋</button>
+    </div>
   </div>
 
   <div class="ticker-wrap" style="position:absolute;bottom:0;left:0;right:0">
@@ -413,14 +463,24 @@ input,select,textarea{font-family:var(--body);font-size:14px}
 ════════════════════════════════════════════════ -->
 <div id="s-access" class="screen" style="flex-direction:column">
   <div style="background:rgba(7,24,40,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(57,255,20,.18);padding:12px 14px;flex-shrink:0;position:relative;z-index:2">
-    <button class="hex-btn" onclick="goOpMode()" style="padding:7px 12px;font-size:10px;margin-bottom:12px;border-color:var(--neon);color:var(--neon)"><span>← MODOS</span></button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <button class="hex-btn" onclick="goOpMode()" style="padding:7px 12px;font-size:10px;border-color:var(--neon);color:var(--neon)"><span>← MODOS</span></button>
+      <button onclick="window.location.href='historial.html'" class="hist-btn"
+  style="height:32px;padding:0 10px;border-radius:16px;background:rgba(255,179,0,.1);
+    border:1px solid rgba(255,179,0,.28);color:var(--amber);font-family:var(--mono);
+    font-size:9px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;
+    transition:all .18s;white-space:nowrap;letter-spacing:.04em;flex-shrink:0"
+  onmouseover="this.style.background='rgba(255,179,0,.22)'"
+  onmouseout="this.style.background='rgba(255,179,0,.1)'"
+  title="Ver mi historial">📋 HISTORIAL</button>
+    </div>
     <div style="display:flex;align-items:center;justify-content:space-between">
       <div>
         <div id="access-fid" style="font-family:var(--mono);font-size:11px;color:var(--neon);margin-bottom:2px"></div>
-        <div style="font-family:var(--head);font-size:clamp(12px,4vw,15px);font-weight:700;letter-spacing:.04em;color:var(--neon)">CONTROL DE ACCESOS</div>
+        <div style="font-family:var(--head);font-size:clamp(11px,3.5vw,15px);font-weight:700;letter-spacing:.03em;color:var(--neon)">CONTROL DE ACCESOS</div>
       </div>
       <div style="text-align:right">
-        <div id="access-gate" style="font-family:var(--head);font-size:18px;color:var(--amber)"></div>
+        <div id="access-gate" style="font-family:var(--head);font-size:clamp(14px,4.5vw,18px);color:var(--amber)"></div>
         <div id="access-time" style="font-family:var(--mono);font-size:10px;color:var(--t2)"></div>
       </div>
     </div>
@@ -439,22 +499,38 @@ input,select,textarea{font-family:var(--body);font-size:14px}
 ════════════════════════════════════════════════ -->
 <div id="s-ramp" class="screen" style="flex-direction:column">
   <div style="background:rgba(7,24,40,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,179,0,.18);padding:12px 14px;flex-shrink:0;position:relative;z-index:2">
-    <button class="hex-btn" onclick="goOpMode()" style="padding:7px 12px;font-size:10px;margin-bottom:12px;border-color:var(--amber);color:var(--amber)"><span>← MODOS</span></button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <button class="hex-btn" onclick="goOpMode()" style="padding:7px 12px;font-size:10px;border-color:var(--amber);color:var(--amber)"><span>← MODOS</span></button>
+      <button onclick="window.location.href='historial.html'" class="hist-btn"
+  style="height:32px;padding:0 10px;border-radius:16px;background:rgba(255,179,0,.1);
+    border:1px solid rgba(255,179,0,.28);color:var(--amber);font-family:var(--mono);
+    font-size:9px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;
+    transition:all .18s;white-space:nowrap;letter-spacing:.04em;flex-shrink:0"
+  onmouseover="this.style.background='rgba(255,179,0,.22)'"
+  onmouseout="this.style.background='rgba(255,179,0,.1)'"
+  title="Ver mi historial">📋 HISTORIAL</button>
+    </div>
     <div style="display:flex;align-items:center;justify-content:space-between">
       <div>
         <div id="ramp-fid" style="font-family:var(--mono);font-size:11px;color:var(--amber);margin-bottom:2px"></div>
-        <div style="font-family:var(--head);font-size:clamp(12px,4vw,15px);font-weight:700;letter-spacing:.04em;color:var(--amber)">OPERACIÓN DE RAMPA</div>
+        <div style="font-family:var(--head);font-size:clamp(11px,3.5vw,15px);font-weight:700;letter-spacing:.03em;color:var(--amber)">OPERACIÓN DE RAMPA</div>
       </div>
       <div id="ramp-timer-wrap" style="text-align:right">
-        <div id="ramp-timer" style="font-family:var(--mono);font-size:20px;color:var(--cyan)">00:00</div>
+        <div id="ramp-timer" style="font-family:var(--mono);font-size:clamp(16px,5vw,20px);color:var(--cyan)">00:00</div>
         <div style="font-family:var(--mono);font-size:9px;color:var(--dim)">TIEMPO OP.</div>
       </div>
     </div>
     <!-- Ramp step tabs -->
-    <div style="display:flex;gap:4px;margin-top:14px">
-      <button class="tab-btn active" id="rtab-cred" style="border-color:var(--amber);color:var(--amber);font-size:10px;padding:5px 12px" onclick="rampTab('cred')">📛 Credenciales</button>
-      <button class="tab-btn" id="rtab-fuel" style="font-size:10px;padding:5px 12px" onclick="rampTab('fuel')">📍 Checkpoints</button>
-      <button class="tab-btn" id="rtab-push" style="font-size:10px;padding:5px 12px" onclick="rampTab('push')">🚜 Pushback</button>
+    <div style="display:flex;gap:3px;margin-top:12px">
+      <button class="tab-btn active" id="rtab-cred"
+        style="border-color:var(--amber);color:var(--amber);font-size:9px;padding:5px 9px"
+        onclick="rampTab('cred')">📛 Credenciales</button>
+      <button class="tab-btn" id="rtab-fuel"
+        style="font-size:9px;padding:5px 9px"
+        onclick="rampTab('fuel')">📍 CP-1 Puente</button>
+      <button class="tab-btn" id="rtab-push"
+        style="font-size:9px;padding:5px 9px"
+        onclick="rampTab('push')">📦 CP-2 Bodega</button>
     </div>
   </div>
 
@@ -465,53 +541,16 @@ input,select,textarea{font-family:var(--body);font-size:14px}
 
   <!-- RAMP tab: Checkpoints -->
   <div id="rtab-fuel-body" style="display:none;flex:1;padding:clamp(10px,3vw,14px);overflow-y:auto;position:relative;z-index:1">
-    <div style="font-family:var(--head);font-size:clamp(10px,3vw,12px);color:var(--amber);letter-spacing:.06em;margin-bottom:4px">📍 CHECKPOINTS DE RAMPA</div>
-    <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-bottom:14px">Toque cada checkpoint para capturar evidencia fotográfica automáticamente con hora y fecha</div>
+    <div style="font-family:var(--head);font-size:clamp(10px,3vw,12px);color:var(--amber);letter-spacing:.06em;margin-bottom:4px">📍 CHECKPOINT 1 — PUENTE / PASAJEROS</div>
+    <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-bottom:12px">📷 = captura foto · ✓ = solo registro de hora</div>
     <div id="checkpoint-grid" style="display:flex;flex-direction:column;gap:10px"></div>
   </div>
 
-  <!-- RAMP tab: Pushback -->
-  <div id="rtab-push-body" style="display:none;flex:1;padding:clamp(10px,3vw,16px);overflow-y:auto;position:relative;z-index:1">
-    <div style="font-family:var(--head);font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:14px">🚜 REGISTRO DE PUSHBACK</div>
-    <div style="display:flex;flex-direction:column;gap:12px">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div>
-          <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-bottom:5px;letter-spacing:.06em">HORA INICIO PUSHBACK</div>
-          <input id="push-start" type="time" style="width:100%;padding:10px 13px;background:rgba(255,179,0,.06);border:1px solid rgba(255,179,0,.3);border-radius:6px;color:var(--t1);outline:none"/>
-        </div>
-        <div>
-          <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-bottom:5px;letter-spacing:.06em">HORA AERONAVE DESPEJA</div>
-          <input id="push-end" type="time" style="width:100%;padding:10px 13px;background:rgba(255,179,0,.06);border:1px solid rgba(255,179,0,.3);border-radius:6px;color:var(--t1);outline:none"/>
-        </div>
-      </div>
-      <div>
-        <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-bottom:5px;letter-spacing:.06em">OPERADOR PUSHBACK</div>
-        <input id="push-operator" type="text" placeholder="Nombre del operador" style="width:100%;padding:10px 13px;background:rgba(255,179,0,.06);border:1px solid rgba(255,179,0,.3);border-radius:6px;color:var(--t1);outline:none"/>
-      </div>
-      <div>
-        <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-bottom:5px;letter-spacing:.06em">MATRÍCULA TRACTOR</div>
-        <input id="push-tractor" type="text" placeholder="Ej: TU-12" style="width:100%;padding:10px 13px;background:rgba(255,179,0,.06);border:1px solid rgba(255,179,0,.3);border-radius:6px;color:var(--t1);outline:none"/>
-      </div>
-      <div>
-        <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-bottom:5px;letter-spacing:.06em">POSICIÓN FINAL</div>
-        <input id="push-pos" type="text" placeholder="Ej: Ruta Alpha, posición 08" style="width:100%;padding:10px 13px;background:rgba(255,179,0,.06);border:1px solid rgba(255,179,0,.3);border-radius:6px;color:var(--t1);outline:none"/>
-      </div>
-      <div>
-        <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-bottom:5px;letter-spacing:.06em">NOVEDAD DURANTE PUSHBACK</div>
-        <select id="push-status" style="width:100%;padding:10px 13px;background:rgba(10,32,53,.9);border:1px solid rgba(255,179,0,.3);border-radius:6px;color:var(--t1);outline:none">
-          <option value="normal">Sin novedad</option>
-          <option value="delay">Retraso</option>
-          <option value="abort">Abortado</option>
-          <option value="incident">Incidente</option>
-        </select>
-      </div>
-      <div>
-        <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-bottom:5px;letter-spacing:.06em">OBSERVACIONES</div>
-        <textarea id="push-notes" rows="2" placeholder="Novedades durante el pushback..." style="width:100%;padding:10px 13px;background:rgba(255,179,0,.06);border:1px solid rgba(255,179,0,.3);border-radius:6px;color:var(--t1);outline:none;resize:none"></textarea>
-      </div>
-      <div id="push-saved" style="display:none;padding:10px 14px;background:rgba(57,255,20,.08);border:1px solid rgba(57,255,20,.3);border-radius:6px;font-family:var(--mono);font-size:10px;color:var(--neon)">✓ Datos de pushback guardados</div>
-      <button class="hex-solid" style="width:100%;padding:14px;background:var(--amber);color:#1a0f00;box-shadow:var(--glow-amber)" onclick="savePushData()">🚜 GUARDAR PUSHBACK</button>
-    </div>
+  <!-- RAMP tab: Checkpoint 2 — Bodega/Gaseo -->
+  <div id="rtab-push-body" style="display:none;flex:1;padding:clamp(10px,3vw,14px);overflow-y:auto;position:relative;z-index:1">
+    <div style="font-family:var(--head);font-size:clamp(10px,3vw,12px);color:var(--amber);letter-spacing:.06em;margin-bottom:4px">📦 CHECKPOINT 2 — BODEGA / GASEO</div>
+    <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-bottom:12px">Toque para capturar foto · los checks no requieren foto</div>
+    <div id="checkpoint2-grid" style="display:flex;flex-direction:column;gap:8px"></div>
   </div>
 
   <div style="padding:10px 12px;flex-shrink:0;background:rgba(7,24,40,.95);border-top:1px solid rgba(255,179,0,.15);position:relative;z-index:2;display:flex;gap:8px">
@@ -529,7 +568,7 @@ input,select,textarea{font-family:var(--body);font-size:14px}
     <div style="display:flex;align-items:center;gap:12px">
       <div class="hex-ring" style="width:44px;height:44px;flex-shrink:0"><div class="r1"></div><div class="r2"></div><div id="opdone-icon" style="font-size:18px">✅</div></div>
       <div>
-        <div id="opdone-title" style="font-family:var(--head);font-size:18px;font-weight:900;letter-spacing:.06em;color:var(--neon)">OPERACIÓN COMPLETADA</div>
+        <div id="opdone-title" style="font-family:var(--head);font-size:clamp(14px,4.5vw,18px);font-weight:900;letter-spacing:.06em;color:var(--neon)">OPERACIÓN COMPLETADA</div>
         <div id="opdone-sub" style="font-family:var(--mono);font-size:10px;color:var(--t2);margin-top:2px"></div>
       </div>
     </div>
@@ -562,7 +601,17 @@ input,select,textarea{font-family:var(--body);font-size:14px}
 ════════════════════════════════════════════════ -->
 <div id="s-flight" class="screen" style="flex-direction:column;padding:0">
   <div style="background:rgba(7,24,40,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,229,255,.15);padding:14px 18px;flex-shrink:0;position:relative;z-index:2">
-    <button class="hex-btn" onclick="goOfficer()" style="padding:7px 12px;font-size:10px;margin-bottom:14px"><span>← ATRÁS</span></button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <button class="hex-btn" onclick="goOfficer()" style="padding:7px 12px;font-size:10px"><span>← ATRÁS</span></button>
+      <button onclick="window.location.href='historial.html'" class="hist-btn"
+  style="height:32px;padding:0 10px;border-radius:16px;background:rgba(255,179,0,.1);
+    border:1px solid rgba(255,179,0,.28);color:var(--amber);font-family:var(--mono);
+    font-size:9px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;
+    transition:all .18s;white-space:nowrap;letter-spacing:.04em;flex-shrink:0"
+  onmouseover="this.style.background='rgba(255,179,0,.22)'"
+  onmouseout="this.style.background='rgba(255,179,0,.1)'"
+  title="Ver mi historial">📋 HISTORIAL</button>
+    </div>
     <div style="font-family:var(--head);font-size:clamp(15px,5vw,20px);font-weight:700;letter-spacing:.06em;color:var(--cyan);animation:neon-flicker 5s ease infinite">DATOS DEL VUELO</div>
     <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:3px">SJO · MROC — Ingrese aerolínea y número de vuelo</div>
   </div>
@@ -642,7 +691,17 @@ input,select,textarea{font-family:var(--body);font-size:14px}
 ════════════════════════════════════════════════ -->
 <div id="s-badges" class="screen" style="flex-direction:column;overflow-y:auto">
   <div style="background:rgba(7,24,40,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,229,255,.15);padding:14px 18px;flex-shrink:0;position:relative;z-index:2">
-    <button class="hex-btn" onclick="goFlight()" style="padding:7px 12px;font-size:10px;margin-bottom:14px"><span>← CAMBIAR VUELO</span></button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <button class="hex-btn" onclick="goFlight()" style="padding:7px 12px;font-size:10px"><span>← CAMBIAR VUELO</span></button>
+      <button onclick="window.location.href='historial.html'" class="hist-btn"
+  style="height:32px;padding:0 10px;border-radius:16px;background:rgba(255,179,0,.1);
+    border:1px solid rgba(255,179,0,.28);color:var(--amber);font-family:var(--mono);
+    font-size:9px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;
+    transition:all .18s;white-space:nowrap;letter-spacing:.04em;flex-shrink:0"
+  onmouseover="this.style.background='rgba(255,179,0,.22)'"
+  onmouseout="this.style.background='rgba(255,179,0,.1)'"
+  title="Ver mi historial">📋 HISTORIAL</button>
+    </div>
     <div style="display:flex;align-items:center;justify-content:space-between">
       <div>
         <div id="badge-fid" style="font-family:var(--mono);font-size:12px;color:var(--cyan);margin-bottom:2px"></div>
@@ -675,15 +734,25 @@ input,select,textarea{font-family:var(--body);font-size:14px}
   <div style="background:rgba(7,24,40,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,229,255,.15);padding:14px 18px;flex-shrink:0;position:relative;z-index:2">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
       <button class="hex-btn" onclick="goFlight()" style="padding:6px 12px;font-size:10px"><span>← CAMBIAR</span></button>
-      <div id="timer-display" style="font-family:var(--mono);font-size:22px;letter-spacing:.08em;color:var(--cyan)">00:00</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div id="timer-display" style="font-family:var(--mono);font-size:clamp(16px,5vw,22px);letter-spacing:.08em;color:var(--cyan)">00:00</div>
+        <button onclick="window.location.href='historial.html'" class="hist-btn"
+  style="height:32px;padding:0 10px;border-radius:16px;background:rgba(255,179,0,.1);
+    border:1px solid rgba(255,179,0,.28);color:var(--amber);font-family:var(--mono);
+    font-size:9px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;
+    transition:all .18s;white-space:nowrap;letter-spacing:.04em;flex-shrink:0"
+  onmouseover="this.style.background='rgba(255,179,0,.22)'"
+  onmouseout="this.style.background='rgba(255,179,0,.1)'"
+  title="Ver mi historial">📋 HISTORIAL</button>
+      </div>
     </div>
     <div style="display:flex;align-items:center;justify-content:space-between">
       <div>
         <div id="insp-fid" style="font-family:var(--mono);font-size:12px;color:var(--cyan);margin-bottom:2px"></div>
-        <div id="insp-airline" style="font-family:var(--head);font-size:16px;font-weight:700;letter-spacing:.03em"></div>
+        <div id="insp-airline" style="font-family:var(--head);font-size:clamp(13px,4vw,16px);font-weight:700;letter-spacing:.03em"></div>
       </div>
       <div style="text-align:right">
-        <div id="insp-gate" style="font-family:var(--head);font-size:20px;color:var(--amber);letter-spacing:.05em"></div>
+        <div id="insp-gate" style="font-family:var(--head);font-size:clamp(15px,5vw,20px);color:var(--amber);letter-spacing:.05em"></div>
         <div id="insp-route" style="font-family:var(--mono);font-size:11px;color:var(--t2);margin-top:2px"></div>
       </div>
     </div>
@@ -719,7 +788,17 @@ input,select,textarea{font-family:var(--body);font-size:14px}
 ════════════════════════════════════════════════ -->
 <div id="s-zone" class="screen" style="flex-direction:column">
   <div style="background:rgba(7,24,40,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,229,255,.15);padding:14px 18px;flex-shrink:0;position:relative;z-index:2">
-    <button class="hex-btn" onclick="backToInspect()" style="padding:7px 12px;font-size:10px;margin-bottom:14px"><span>← ZONAS</span></button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <button class="hex-btn" onclick="backToInspect()" style="padding:7px 12px;font-size:10px"><span>← ZONAS</span></button>
+      <button onclick="window.location.href='historial.html'" class="hist-btn"
+  style="height:32px;padding:0 10px;border-radius:16px;background:rgba(255,179,0,.1);
+    border:1px solid rgba(255,179,0,.28);color:var(--amber);font-family:var(--mono);
+    font-size:9px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;
+    transition:all .18s;white-space:nowrap;letter-spacing:.04em;flex-shrink:0"
+  onmouseover="this.style.background='rgba(255,179,0,.22)'"
+  onmouseout="this.style.background='rgba(255,179,0,.1)'"
+  title="Ver mi historial">📋 HISTORIAL</button>
+    </div>
     <div style="display:flex;align-items:center;gap:14px">
       <div id="zone-icon" style="font-size:clamp(26px,8vw,36px)"></div>
       <div>
@@ -754,7 +833,7 @@ input,select,textarea{font-family:var(--body);font-size:14px}
     <div style="display:flex;align-items:center;gap:12px">
       <div class="hex-ring" id="done-ring" style="width:44px;height:44px;flex-shrink:0"><div class="r1"></div><div class="r2"></div><div class="ri" id="done-icon" style="font-size:18px">✅</div></div>
       <div>
-        <div id="done-title" style="font-family:var(--head);font-size:18px;font-weight:900;letter-spacing:.06em;color:var(--neon)">AERONAVE LIBERADA</div>
+        <div id="done-title" style="font-family:var(--head);font-size:clamp(14px,4.5vw,18px);font-weight:900;letter-spacing:.06em;color:var(--neon)">AERONAVE LIBERADA</div>
         <div id="done-sub" style="font-family:var(--mono);font-size:10px;color:var(--t2);margin-top:2px"></div>
       </div>
     </div>
@@ -1145,7 +1224,7 @@ function selectOpMode(mode) {
   state.opBadges = [];
   state.accessBadges = [];
   state.rampFuel = null;
-  state.rampPush = null;
+  state.rampPush = null; // kept for compat
   if (mode === "inspect") {
     // existing flow: badge pre-op then zone inspection
     const f = state.currentFlight;
@@ -1357,33 +1436,46 @@ function rampTab(tab) {
     if (t !== "cred") body.style.display = active ? "block" : "none";
   });
   if(tab==="fuel") initCheckpointGrid();
+  if(tab==="push") initCheckpoint2Grid();
 }
 
 function saveFuelData() { /* replaced by checkpoint system */ }
 
-function savePushData() {
-  state.rampPush = {
-    start:    $("push-start")?.value || "",
-    end:      $("push-end")?.value || "",
-    operator: $("push-operator")?.value || "",
-    tractor:  $("push-tractor")?.value || "",
-    pos:      $("push-pos")?.value || "",
-    status:   $("push-status")?.value || "normal",
-    notes:    $("push-notes")?.value || "",
-    savedAt:  t12(),
-  };
-  const s = $("push-saved");
-  if (s) { s.style.display = "block"; setTimeout(()=>s.style.display="none", 3000); }
-}
+function savePushData() { /* replaced by checkpoint system */ }
 
 
 // ═══ FUEL PHOTOS ═════════════════════════════════════════════
 // ═══ CHECKPOINTS ════════════════════════════════════════════
+// CHECKPOINT 1 — Puente / Pasajeros
+// photo:true = captura foto obligatoria | photo:false = solo check de hora
 const CHECKPOINTS = [
-  {id:"abre_bin",      label:"Abre Bin",             icon:"📂", color:"var(--cyan)"},
-  {id:"cierra_bin",    label:"Cierra Bin",            icon:"📁", color:"var(--cyan)"},
-  {id:"chequeo_newrest",label:"Chequeo Etiqueta Newrest", icon:"🏷", color:"var(--neon)"},
-  {id:"baja_newrest",  label:"Baja Newrest",          icon:"⬇", color:"var(--neon)"},
+  {id:"cp1_acople_puente",       label:"Acople de Puente",         icon:"🔗", color:"var(--cyan)",  photo:true},
+  {id:"cp1_apertura_puerta",     label:"Apertura de Puerta",       icon:"🚪", color:"var(--cyan)",  photo:true},
+  {id:"cp1_inicia_desabordaje",  label:"Inicia Desabordaje",       icon:"⬇", color:"var(--neon)",  photo:true},
+  {id:"cp1_finaliza_desabordaje",label:"Finaliza Desabordaje",     icon:"✅", color:"var(--neon)",  photo:true},
+  {id:"cp1_pax_llegando",        label:"Pax Llegando",             icon:"🧑‍✈️", color:"var(--t2)",   photo:true},
+  {id:"cp1_salida_tripulacion",  label:"Salida Tripulación",       icon:"⬆", color:"var(--amber)", photo:false},
+  {id:"cp1_ingreso_tripulacion", label:"Ingreso Tripulación",      icon:"⬇", color:"var(--amber)", photo:false},
+  {id:"cp1_permiso_abordaje",    label:"Permiso de Abordaje",      icon:"✔", color:"var(--cyan)",  photo:true},
+  {id:"cp1_inicio_abordaje",     label:"Inicio Abordaje",          icon:"⬆", color:"var(--neon)",  photo:true},
+  {id:"cp1_finaliza_abordaje",   label:"Finaliza Abordaje",        icon:"✅", color:"var(--neon)",  photo:true},
+  {id:"cp1_cierra_puerta",       label:"Cierra Puerta",            icon:"🚪", color:"var(--cyan)",  photo:true},
+  {id:"cp1_desacople_puente",    label:"Desacople de Puente",      icon:"🔓", color:"var(--cyan)",  photo:true},
+  {id:"cp1_pushback",            label:"Pushback",                 icon:"🚜", color:"var(--amber)", photo:true},
+];
+
+// CHECKPOINT 2 — Bodega / Gaseo
+const CHECKPOINTS2 = [
+  {id:"cp2_abre_bin",            label:"Abre Bin",                 icon:"📂", color:"var(--cyan)",  photo:true},
+  {id:"cp2_cierra_bin",          label:"Cierra Bin",               icon:"📁", color:"var(--cyan)",  photo:true},
+  {id:"cp2_primera_maleta_baja", label:"1ª Maleta Descargada",     icon:"🧳", color:"var(--t2)",   photo:true},
+  {id:"cp2_ultima_maleta_baja",  label:"Última Maleta Descargada", icon:"🧳", color:"var(--t2)",   photo:true},
+  {id:"cp2_inicio_gaseo",        label:"Inicio Gaseo",             icon:"⛽", color:"var(--amber)", photo:true},
+  {id:"cp2_finaliza_gaseo",      label:"Finaliza Gaseo",           icon:"⏹", color:"var(--amber)", photo:true},
+  {id:"cp2_primera_maleta_sube", label:"1ª Maleta Subiendo",       icon:"🧳", color:"var(--neon)",  photo:true},
+  {id:"cp2_ultima_maleta_sube",  label:"Última Maleta Subiendo",   icon:"🧳", color:"var(--neon)",  photo:true},
+  {id:"cp2_chequeo_newrest",     label:"Chequeo Etiqueta Newrest", icon:"🏷", color:"var(--violet)",photo:true},
+  {id:"cp2_baja_newrest",        label:"Baja Newrest",             icon:"⬇", color:"var(--violet)",photo:true},
 ];
 
 // Checkpoints are stored in state.rampCheckpoints:
@@ -1396,73 +1488,122 @@ function initCheckpointGrid() {
   renderCheckpointGrid();
 }
 
-function renderCheckpointGrid() {
-  const grid = $("checkpoint-grid");
+function initCheckpoint2Grid() {
+  if(!state.rampCheckpoints) state.rampCheckpoints = {};
+  renderCheckpoint2Grid();
+}
+
+// ── Generic checkpoint grid renderer ──────────────────────────
+function renderCpGrid(gridId, cpArray) {
+  const grid = $(gridId);
   if(!grid) return;
   if(!state.rampCheckpoints) state.rampCheckpoints = {};
 
-  let html = CHECKPOINTS.map(cp => {
+  const cpHtml = cpArray.map(cp => {
     const done = state.rampCheckpoints[cp.id];
-    const borderCol = done ? cp.color : "rgba(255,179,0,.2)";
-    const bg        = done ? cp.color.replace("var(","rgba(").replace("--cyan)","0,229,255,.06)").replace("--neon)","57,255,20,.06)") : "rgba(7,24,40,.7)";
+    const needsPhoto = cp.photo !== false;
+    const borderCol  = done ? cp.color : "rgba(255,179,0,.18)";
+    const bgBase     = done ? cp.color
+      .replace("var(--cyan)","rgba(0,229,255,.07)")
+      .replace("var(--neon)","rgba(57,255,20,.07)")
+      .replace("var(--amber)","rgba(255,179,0,.07)")
+      .replace("var(--t2)","rgba(128,222,234,.06)")
+      .replace("var(--violet)","rgba(224,64,251,.07)")
+      : "rgba(7,24,40,.75)";
 
-    return `<div style="border-radius:10px;overflow:hidden;border:2px solid ${borderCol};background:${bg};transition:all .2s">
-      <div style="display:flex;align-items:center;gap:0">
-        <!-- Left: status indicator -->
-        <div style="width:52px;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:12px 0;background:${done?cp.color+"20":"rgba(0,0,0,.2)"}">
+    return `<div style="border-radius:9px;overflow:hidden;border:1.5px solid ${borderCol};background:${bgBase};transition:all .2s">
+      <div style="display:flex;align-items:center">
+        <!-- Status circle -->
+        <div style="width:46px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+          padding:10px 0;background:${done?cp.color.replace("var(--cyan)","rgba(0,229,255,.15)").replace("var(--neon)","rgba(57,255,20,.15)").replace("var(--amber)","rgba(255,179,0,.15)").replace("var(--t2)","rgba(128,222,234,.12)").replace("var(--violet)","rgba(224,64,251,.15)"):"rgba(0,0,0,.18)"}">
           ${done
-            ? `<div style="width:28px;height:28px;border-radius:50%;background:${cp.color};display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 0 10px ${cp.color}60">✓</div>`
-            : `<div style="font-size:24px;opacity:.5">${cp.icon}</div>`}
+            ? `<div style="width:26px;height:26px;border-radius:50%;background:${cp.color};
+                display:flex;align-items:center;justify-content:center;font-size:13px;
+                box-shadow:0 0 8px ${cp.color}60">✓</div>`
+            : `<div style="font-size:20px;opacity:.45">${cp.icon}</div>`}
         </div>
-        <!-- Center: info -->
-        <div style="flex:1;padding:10px 12px;min-width:0">
-          <div style="font-family:var(--head);font-size:12px;font-weight:700;letter-spacing:.04em;color:${done?cp.color:"var(--t1)"}">${cp.label}</div>
+        <!-- Label + thumb -->
+        <div style="flex:1;padding:8px 10px;min-width:0">
+          <div style="font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:.03em;
+            color:${done?cp.color:"var(--t1)"};line-height:1.2">${cp.label}</div>
           ${done
-            ? `<div style="font-family:var(--mono);font-size:9px;color:${cp.color};margin-top:2px">✓ ${done.timestamp}</div>
-               <div style="margin-top:6px;border-radius:4px;overflow:hidden;border:1px solid ${cp.color}40;width:60px;height:40px">
-                 <img src="${done.photo}" style="width:100%;height:100%;object-fit:cover"/>
-               </div>`
-            : `<div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:2px">Pendiente · toque para capturar</div>`}
+            ? `<div style="font-family:var(--mono);font-size:8px;color:${cp.color};margin-top:2px">✓ ${done.timestamp}</div>
+               ${needsPhoto && done.photo ? `<div style="margin-top:5px;width:50px;height:34px;border-radius:3px;overflow:hidden;border:1px solid ${cp.color}40">
+                 <img src="${done.photo}" style="width:100%;height:100%;object-fit:cover"/></div>` : ""}`
+            : `<div style="font-family:var(--mono);font-size:8px;color:var(--dim);margin-top:2px">
+                ${needsPhoto ? "📷 toque para capturar" : "✓ toque para registrar"}</div>`}
         </div>
-        <!-- Right: action button -->
-        <div style="padding:10px;flex-shrink:0">
-          <button onclick="captureCheckpoint('${cp.id}')"
-            style="padding:${done?"7px 10px":"10px 14px"};border-radius:8px;cursor:pointer;border:none;font-family:var(--head);font-size:10px;font-weight:700;letter-spacing:.04em;transition:all .18s;
-              background:${done?"rgba(0,229,255,.1)":"var(--amber)"};
-              color:${done?"var(--cyan)":"#1a0f00"}">
-            ${done?"↺ Repetir":"📷 Capturar"}
+        <!-- Action button -->
+        <div style="padding:8px;flex-shrink:0">
+          <button onclick="${needsPhoto ? `captureCheckpoint('${cp.id}')` : `checkOnlyCP('${cp.id}')`}"
+            style="padding:${done?"6px 9px":"8px 11px"};border-radius:7px;cursor:pointer;border:none;
+              font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:.04em;transition:all .18s;
+              min-height:36px;
+              background:${done?"rgba(0,229,255,.1)":needsPhoto?"var(--amber)":"rgba(57,255,20,.15)"};
+              color:${done?"var(--cyan)":needsPhoto?"#1a0f00":"var(--neon)"}">
+            ${done?"↺":""}${needsPhoto?(!done?"📷":""):""}${!done&&!needsPhoto?"✓ Marcar":""}${done?" OK":""}
           </button>
         </div>
       </div>
     </div>`;
   }).join("");
 
-  // Incident reports section
-  const incCount = (state.rampIncidents||[]).length;
-  html += `<div style="margin-top:6px;border-top:1px solid rgba(255,23,68,.2);padding-top:12px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-      <div style="font-family:var(--head);font-size:11px;color:var(--red);letter-spacing:.06em">🚨 REPORTAR INCIDENTE</div>
-      ${incCount>0?`<span style="font-family:var(--mono);font-size:9px;padding:2px 8px;background:rgba(255,23,68,.12);border:1px solid rgba(255,23,68,.3);border-radius:2px;color:var(--red)">${incCount} reporte${incCount>1?"s":""}</span>`:""}
-    </div>
-    ${(state.rampIncidents||[]).map((inc,i) => `
-      <div style="margin-bottom:10px;padding:10px 12px;border-radius:8px;background:rgba(255,23,68,.06);border:1px solid rgba(255,23,68,.2)">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-          <span style="font-family:var(--mono);font-size:9px;color:var(--red)">🚨 Incidente ${i+1} · ${inc.timestamp}</span>
-          <button onclick="removeIncident(${i})" style="background:transparent;border:none;color:var(--red);font-size:12px;cursor:pointer;padding:0 4px">✕</button>
-        </div>
-        ${inc.comment?`<div style="font-size:11px;color:var(--t2);margin-bottom:8px;line-height:1.5">${inc.comment}</div>`:""}
-        <div style="display:flex;gap:5px;flex-wrap:wrap">
-          ${(inc.photos||[]).map(p=>`<div style="width:48px;height:48px;border-radius:4px;overflow:hidden;border:1px solid rgba(255,23,68,.3)"><img src="${p}" style="width:100%;height:100%;object-fit:cover"/></div>`).join("")}
-        </div>
-      </div>`).join("")}
-    <button onclick="openIncidentForm()"
-      style="width:100%;padding:13px;border-radius:8px;background:rgba(255,23,68,.08);border:1px dashed rgba(255,23,68,.4);color:var(--red);font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:all .18s"
-      onmouseover="this.style.background='rgba(255,23,68,.15)'" onmouseout="this.style.background='rgba(255,23,68,.08)'">
-      🚨 + NUEVO INCIDENTE
-    </button>
-  </div>`;
+  // Incident section (only on CP1 grid)
+  let incHtml = "";
+  if(gridId === "checkpoint-grid") {
+    const incCount = (state.rampIncidents||[]).length;
+    incHtml = `<div style="margin-top:8px;border-top:1px solid rgba(255,23,68,.18);padding-top:10px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div style="font-family:var(--head);font-size:10px;color:var(--red);letter-spacing:.06em">🚨 REPORTAR INCIDENTE</div>
+        ${incCount>0?`<span style="font-family:var(--mono);font-size:8px;padding:2px 7px;background:rgba(255,23,68,.12);border:1px solid rgba(255,23,68,.3);border-radius:2px;color:var(--red)">${incCount}</span>`:""}
+      </div>
+      ${(state.rampIncidents||[]).map((inc,i)=>`
+        <div style="margin-bottom:8px;padding:9px 11px;border-radius:7px;background:rgba(255,23,68,.06);border:1px solid rgba(255,23,68,.18)">
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+            <span style="font-family:var(--mono);font-size:8px;color:var(--red)">🚨 Incidente ${i+1} · ${inc.timestamp}</span>
+            <button onclick="removeIncident(${i})" style="background:transparent;border:none;color:var(--red);font-size:11px;cursor:pointer">✕</button>
+          </div>
+          ${inc.comment?`<div style="font-size:11px;color:var(--t2);margin-bottom:6px;line-height:1.5">${inc.comment}</div>`:""}
+          <div style="display:flex;gap:5px;flex-wrap:wrap">
+            ${(inc.photos||[]).map(p=>`<div style="width:44px;height:44px;border-radius:4px;overflow:hidden;border:1px solid rgba(255,23,68,.3)"><img src="${p}" style="width:100%;height:100%;object-fit:cover"/></div>`).join("")}
+          </div>
+        </div>`).join("")}
+      <button onclick="openIncidentForm()"
+        style="width:100%;padding:11px;border-radius:7px;background:rgba(255,23,68,.07);
+          border:1px dashed rgba(255,23,68,.38);color:var(--red);font-family:var(--head);
+          font-size:10px;font-weight:700;letter-spacing:.06em;cursor:pointer;min-height:44px"
+        onmouseover="this.style.background='rgba(255,23,68,.14)'"
+        onmouseout="this.style.background='rgba(255,23,68,.07)'">
+        🚨 + NUEVO INCIDENTE
+      </button>
+    </div>`;
+  }
 
-  grid.innerHTML = html;
+  grid.innerHTML = cpHtml + incHtml;
+}
+
+function renderCheckpointGrid()  { renderCpGrid("checkpoint-grid",  CHECKPOINTS);  }
+function renderCheckpoint2Grid() { renderCpGrid("checkpoint2-grid", CHECKPOINTS2); }
+
+// Check-only (no photo) checkpoint
+function checkOnlyCP(cpId) {
+  if(!state.rampCheckpoints) state.rampCheckpoints = {};
+  const already = state.rampCheckpoints[cpId];
+  if(already) {
+    // Toggle off
+    delete state.rampCheckpoints[cpId];
+  } else {
+    state.rampCheckpoints[cpId] = { photo: null, timestamp: t12(), done: true };
+  }
+  renderCheckpointGrid();
+  renderCheckpoint2Grid();
+  // Toast
+  const cp = [...CHECKPOINTS,...CHECKPOINTS2].find(c=>c.id===cpId);
+  const toast = document.createElement("div");
+  toast.style.cssText = "position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(255,179,0,.15);border:1px solid rgba(255,179,0,.4);border-radius:6px;padding:9px 18px;font-family:var(--mono);font-size:11px;color:var(--amber);z-index:200;animation:slide-up .3s ease;white-space:nowrap;backdrop-filter:blur(10px)";
+  toast.textContent = state.rampCheckpoints[cpId] ? `✓ ${cp?.label||cpId} — ${t12()}` : `↩ ${cp?.label||cpId} desmarcado`;
+  document.body.appendChild(toast);
+  setTimeout(()=>toast.remove(), 2200);
 }
 
 function captureCheckpoint(cpId) {
@@ -1621,14 +1762,14 @@ function showOpDone(mode) {
     // Checkpoints summary
     const cps = state.rampCheckpoints || {};
     const cpDone = Object.keys(cps).length;
-    const cpTotal = CHECKPOINTS.length;
+    const cpTotal = CHECKPOINTS.length + CHECKPOINTS2.length;
     html2 += `<div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,179,0,.25);background:rgba(10,32,53,.5)">
       <div style="padding:10px 14px;border-bottom:1px solid rgba(255,179,0,.2);display:flex;align-items:center;justify-content:space-between">
         <span style="font-family:var(--head);font-size:11px;color:var(--amber);letter-spacing:.08em">📍 CHECKPOINTS</span>
         <span style="font-family:var(--mono);font-size:10px;color:${cpDone===cpTotal?"var(--neon)":"var(--amber)"}"">${cpDone}/${cpTotal} completados</span>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(0,229,255,.06)">
-        ${CHECKPOINTS.map(cp => {
+        ${[...CHECKPOINTS,...CHECKPOINTS2].map(cp => {
           const done = cps[cp.id];
           return `<div style="padding:10px 12px;background:rgba(7,24,40,.9);display:flex;align-items:center;gap:8px">
             ${done
@@ -2186,9 +2327,9 @@ function openCam() {
   } else if(mode==="ramp"){
     $("cam-zone-name").textContent = `RAMPA · ${dirLabel} · CRED. ${state.accessBadges.length+1}`;
   } else if(mode==="fuel-photo"){
-    const _cpSlot = CHECKPOINTS.find(s=>s.id===state._fuelPhotoSlot);
+    const _cpSlot = [...CHECKPOINTS,...CHECKPOINTS2].find(s=>s.id===state._fuelPhotoSlot);
     const _cpLabel = _cpSlot ? _cpSlot.label : (state._addingIncidentPhoto ? "INCIDENTE" : state._fuelPhotoSlot||"CHECKPOINT");
-    $("cam-zone-name").textContent = `RAMPA · CHECKPOINT · ${_cpLabel}`;
+    $("cam-zone-name").textContent = `RAMPA · ${_cpLabel}`;
   } else {
     $("cam-zone-name").textContent = `${(state.activeZone?.label||"ZONE").toUpperCase()} · FOTO DE ZONA`;
   }
@@ -2919,6 +3060,7 @@ function usePhoto(dataUrl, ocr) {
     state._fuelPhotoSlot = null;
     state.badgeDirection = null;
     renderCheckpointGrid();
+    renderCheckpoint2Grid();
     // Toast
     const toast = document.createElement("div");
     toast.style.cssText = "position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(255,179,0,.15);border:1px solid rgba(255,179,0,.4);border-radius:6px;padding:10px 18px;font-family:var(--mono);font-size:11px;color:var(--amber);z-index:200;animation:slide-up .3s ease;white-space:nowrap;backdrop-filter:blur(10px)";
