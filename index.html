@@ -158,6 +158,23 @@ input,select,textarea{font-family:var(--body);font-size:14px}
 /* admin panels */
 .admin-tab{display:none}
 .admin-tab.active{display:block}
+
+/* ── MOBILE RESPONSIVE ── */
+@media(max-width:400px){
+  .cyf.flight-card{padding:13px 14px!important;gap:12px!important}
+  .cyf.flight-card .hex-ring{width:44px!important;height:44px!important;flex-shrink:0!important}
+  .cyf.flight-card .hex-ring .ri{font-size:17px!important}
+  .cyf.flight-card div[style*="font-size:15px"]{font-size:13px!important}
+  .cyf.flight-card div[style*="font-size:14px"]{font-size:12px!important}
+}
+@media(max-height:660px){
+  #s-select,#s-ohome{gap:12px!important;padding:14px 18px!important}
+  #s-ohome .hex-ring{width:60px!important;height:60px!important}
+  #s-ohome .hex-ring .ri{font-size:24px!important}
+}
+@media(max-width:360px){
+  .tab-btn{padding:5px 8px!important;font-size:9px!important}
+}
 </style>
 </head>
 <body>
@@ -186,17 +203,17 @@ input,select,textarea{font-family:var(--body);font-size:14px}
   </div>
 
   <div style="text-align:center;animation:slide-up .5s ease;position:relative;z-index:1">
-    <div class="hex-ring" style="width:110px;height:110px;margin:0 auto 22px">
+    <div class="hex-ring" style="width:clamp(70px,20vw,110px);height:clamp(70px,20vw,110px);margin:0 auto clamp(12px,3vw,22px)">
       <div class="r1"></div><div class="r2"></div>
-      <div class="ri" style="font-size:44px;animation:float 4s ease-in-out infinite">✈</div>
+      <div class="ri" style="font-size:clamp(26px,8vw,44px);animation:float 4s ease-in-out infinite">✈</div>
     </div>
-    <div class="holo-text" style="font-family:var(--head);font-size:46px;font-weight:900;letter-spacing:.12em;line-height:1">AVSEC PRO</div>
-    <div style="font-family:var(--head);font-size:12px;color:var(--cyan2);letter-spacing:.28em;margin-top:8px">GESTIÓN DE SEGURIDAD AERONÁUTICA</div>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:6px">AEROPUERTO INTERNACIONAL JUAN SANTAMARÍA · SJO · MROC</div>
+    <div class="holo-text" style="font-family:var(--head);font-size:clamp(28px,10vw,46px);font-weight:900;letter-spacing:.1em;line-height:1">AVSEC PRO</div>
+    <div style="font-family:var(--head);font-size:clamp(8px,2.5vw,12px);color:var(--cyan2);letter-spacing:.2em;margin-top:6px">GESTIÓN DE SEGURIDAD AERONÁUTICA</div>
+    <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:4px">SJO · MROC</div>
   </div>
 
-  <div style="width:100%;max-width:360px;display:flex;flex-direction:column;gap:12px;position:relative;z-index:1">
-    <div style="font-family:var(--mono);font-size:9px;color:var(--dim);text-align:center;letter-spacing:.1em;margin-bottom:4px">SELECCIONE MODO OPERACIONAL</div>
+  <div style="width:100%;max-width:360px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1">
+    <div style="font-family:var(--mono);font-size:9px;color:var(--dim);text-align:center;letter-spacing:.1em;margin-bottom:2px">SELECCIONE MODO OPERACIONAL</div>
 
     <div id="card-oficial" class="cyf flight-card" onclick="goOfficer()"
       style="padding:20px 22px;background:rgba(0,229,255,.04);backdrop-filter:blur(12px);border:1px solid rgba(0,229,255,.18);border-radius:8px;display:flex;align-items:center;gap:16px;animation:slide-up .4s .1s ease both">
@@ -217,8 +234,21 @@ input,select,textarea{font-family:var(--body);font-size:14px}
     </div>
   </div>
 
-  <!-- Settings button -->
-  <button onclick="goSettings()" style="position:absolute;top:18px;right:18px;z-index:10;width:38px;height:38px;border-radius:50%;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.25);color:var(--cyan);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" onmouseover="this.style.background='rgba(0,229,255,.2)'" onmouseout="this.style.background='rgba(0,229,255,.08)'" title="Configuración">⚙</button>
+  <!-- Top-right action buttons -->
+  <div style="position:absolute;top:14px;right:14px;z-index:10;display:flex;gap:7px">
+    <button onclick="window.location.href='historial.html'"
+      style="height:36px;padding:0 12px;border-radius:18px;background:rgba(255,179,0,.1);
+        border:1px solid rgba(255,179,0,.3);color:var(--amber);font-family:var(--mono);
+        font-size:9px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .18s"
+      onmouseover="this.style.background='rgba(255,179,0,.22)'" onmouseout="this.style.background='rgba(255,179,0,.1)'"
+      title="Mi Historial">📋 HISTORIAL</button>
+    <button onclick="window.location.href='login.html'"
+      style="width:36px;height:36px;border-radius:50%;background:rgba(0,229,255,.08);
+        border:1px solid rgba(0,229,255,.25);color:var(--cyan);font-size:15px;
+        display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s"
+      onmouseover="this.style.background='rgba(0,229,255,.2)'" onmouseout="this.style.background='rgba(0,229,255,.08)'"
+      title="Configuración">⚙</button>
+  </div>
 
   <div class="ticker-wrap" style="position:absolute;bottom:0;left:0;right:0">
     <div class="ticker-inner">CUMPLE ANEXO 17 OACI · CERTIFICADO DGAC · SJO MROC · SISTEMA DE GESTIÓN DE SEGURIDAD AEROPORTUARIA v3.1 · CUMPLE ANEXO 17 OACI · CERTIFICADO DGAC · SJO MROC · SISTEMA DE GESTIÓN DE SEGURIDAD AEROPORTUARIA v3.1 · </div>
@@ -228,20 +258,42 @@ input,select,textarea{font-family:var(--body);font-size:14px}
 <!-- ═══════════════════════════════════════════════
      SCREEN: OFFICER HOME
 ════════════════════════════════════════════════ -->
-<div id="s-ohome" class="screen" style="align-items:center;justify-content:center;padding:28px;gap:28px">
-  <div style="position:absolute;top:20%;left:50%;transform:translateX(-50%);width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,.07) 0%,transparent 70%);pointer-events:none"></div>
-  <div style="text-align:center;animation:slide-up .45s ease;position:relative;z-index:1">
-    <div class="hex-ring" style="width:100px;height:100px;margin:0 auto 20px"><div class="r1"></div><div class="r2"></div><div class="ri" style="font-size:40px">✈</div></div>
-    <div class="holo-text" style="font-family:var(--head);font-size:40px;font-weight:900;letter-spacing:.1em;line-height:1">AVSEC</div>
-    <div style="font-family:var(--head);font-size:13px;color:var(--cyan2);letter-spacing:.2em;margin-top:6px">OFICIAL DE SEGURIDAD</div>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:4px">SJO · MROC · MODO CAMPO</div>
+<div id="s-ohome" class="screen" style="align-items:center;justify-content:center;padding:24px;gap:20px">
+  <div style="position:absolute;top:20%;left:50%;transform:translateX(-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,.07) 0%,transparent 70%);pointer-events:none"></div>
+  <!-- top-right links -->
+  <div style="position:absolute;top:14px;right:14px;z-index:10;display:flex;gap:7px">
+    <button onclick="window.location.href='historial.html'"
+      style="height:34px;padding:0 11px;border-radius:17px;background:rgba(255,179,0,.1);
+        border:1px solid rgba(255,179,0,.3);color:var(--amber);font-family:var(--mono);
+        font-size:9px;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .18s"
+      onmouseover="this.style.background='rgba(255,179,0,.22)'" onmouseout="this.style.background='rgba(255,179,0,.1)'">
+      📋 HISTORIAL</button>
+    <button onclick="window.location.href='login.html'"
+      style="width:34px;height:34px;border-radius:50%;background:rgba(0,229,255,.08);
+        border:1px solid rgba(0,229,255,.25);color:var(--cyan);font-size:14px;
+        display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s"
+      onmouseover="this.style.background='rgba(0,229,255,.2)'" onmouseout="this.style.background='rgba(0,229,255,.08)'">⚙</button>
   </div>
-  <div style="width:100%;max-width:320px;display:flex;flex-direction:column;gap:12px;position:relative;z-index:1">
-    <button class="hex-solid su" style="width:100%;padding:18px;font-size:14px" onclick="startOfficerFlow()">⬡ INICIAR OPERACIÓN</button>
-    <button class="hex-btn" style="width:100%;padding:13px;font-size:11px" onclick="goSelect()"><span>← VOLVER AL INICIO</span></button>
+  <div style="text-align:center;animation:slide-up .45s ease;position:relative;z-index:1">
+    <div class="hex-ring" style="width:clamp(72px,18vw,100px);height:clamp(72px,18vw,100px);margin:0 auto 16px">
+      <div class="r1"></div><div class="r2"></div>
+      <div class="ri" style="font-size:clamp(28px,7vw,40px)">✈</div></div>
+    <div class="holo-text" style="font-family:var(--head);font-size:clamp(26px,9vw,40px);font-weight:900;letter-spacing:.1em;line-height:1">AVSEC</div>
+    <div style="font-family:var(--head);font-size:clamp(9px,2.5vw,13px);color:var(--cyan2);letter-spacing:.18em;margin-top:6px">OFICIAL DE SEGURIDAD</div>
+    <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:4px">SJO · MROC · MODO CAMPO</div>
+  </div>
+  <div style="width:100%;max-width:320px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1">
+    <button class="hex-solid su" style="width:100%;padding:17px;font-size:14px" onclick="startOfficerFlow()">⬡ INICIAR OPERACIÓN</button>
+    <button onclick="window.location.href='historial.html'"
+      style="width:100%;padding:13px;border-radius:6px;background:rgba(255,179,0,.08);
+        border:1px solid rgba(255,179,0,.25);color:var(--amber);font-family:var(--head);
+        font-size:11px;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:all .18s"
+      onmouseover="this.style.background='rgba(255,179,0,.18)'" onmouseout="this.style.background='rgba(255,179,0,.08)'">
+      📋 VER MI HISTORIAL</button>
+    <button class="hex-btn" style="width:100%;padding:11px;font-size:10px" onclick="goSelect()"><span>← INICIO</span></button>
   </div>
   <div class="ticker-wrap" style="position:absolute;bottom:0;left:0;right:0">
-    <div class="ticker-inner">OPERACIONES DE SEGURIDAD SJO · MROC · ANEXO 17 OACI · CERTIFICADO DGAC · OPERACIONES DE SEGURIDAD SJO · MROC · ANEXO 17 OACI · CERTIFICADO DGAC · </div>
+    <div class="ticker-inner">OPERACIONES · SJO · MROC · ANEXO 17 OACI · CERTIFICADO DGAC · </div>
   </div>
 </div>
 
@@ -251,7 +303,7 @@ input,select,textarea{font-family:var(--body);font-size:14px}
 <div id="s-opmode" class="screen" style="align-items:center;justify-content:center;padding:24px;gap:20px;flex-direction:column">
   <div style="position:absolute;top:20%;left:50%;transform:translateX(-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,.07) 0%,transparent 70%);pointer-events:none"></div>
   <div style="text-align:center;position:relative;z-index:1;animation:slide-up .4s ease">
-    <div style="font-family:var(--head);font-size:11px;color:var(--cyan2);letter-spacing:.24em;margin-bottom:8px">SELECCIONAR OPERACIÓN</div>
+    <div style="font-family:var(--head);font-size:10px;color:var(--cyan2);letter-spacing:.18em;margin-bottom:6px">SELECCIONAR OPERACIÓN</div>
     <div id="opmode-flight-label" style="font-family:var(--mono);font-size:11px;color:var(--t3)"></div>
   </div>
 
@@ -433,7 +485,13 @@ input,select,textarea{font-family:var(--body);font-size:14px}
   <!-- Footer -->
   <div style="padding:14px 16px;flex-shrink:0;background:rgba(7,24,40,.95);border-top:1px solid rgba(0,229,255,.1);display:flex;flex-direction:column;gap:9px;position:relative;z-index:10">
     <button class="hex-solid" style="width:100%;padding:15px;font-size:13px" onclick="goOpMode()">⬡ NUEVA OPERACIÓN</button>
-    <button class="hex-btn" style="width:100%;padding:11px;font-size:10px" onclick="goSelect()"><span>← INICIO</span></button>
+    <button onclick="window.location.href='historial.html'"
+      style="width:100%;padding:12px;border-radius:6px;background:rgba(255,179,0,.1);
+        border:1px solid rgba(255,179,0,.3);color:var(--amber);font-family:var(--head);
+        font-size:11px;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:all .18s"
+      onmouseover="this.style.background='rgba(255,179,0,.2)'" onmouseout="this.style.background='rgba(255,179,0,.1)'">
+      📋 VER MI HISTORIAL</button>
+    <button class="hex-btn" style="width:100%;padding:10px;font-size:10px" onclick="goSelect()"><span>← INICIO</span></button>
   </div>
 </div>
 
@@ -444,7 +502,7 @@ input,select,textarea{font-family:var(--body);font-size:14px}
 <div id="s-flight" class="screen" style="flex-direction:column;padding:0">
   <div style="background:rgba(7,24,40,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,229,255,.15);padding:14px 18px;flex-shrink:0;position:relative;z-index:2">
     <button class="hex-btn" onclick="goOfficer()" style="padding:7px 12px;font-size:10px;margin-bottom:14px"><span>← ATRÁS</span></button>
-    <div style="font-family:var(--head);font-size:20px;font-weight:700;letter-spacing:.08em;color:var(--cyan);animation:neon-flicker 5s ease infinite">DATOS DEL VUELO</div>
+    <div style="font-family:var(--head);font-size:clamp(15px,5vw,20px);font-weight:700;letter-spacing:.06em;color:var(--cyan);animation:neon-flicker 5s ease infinite">DATOS DEL VUELO</div>
     <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:3px">SJO · MROC — Ingrese aerolínea y número de vuelo</div>
   </div>
 
@@ -659,7 +717,13 @@ input,select,textarea{font-family:var(--body);font-size:14px}
   <!-- Footer buttons -->
   <div style="padding:14px 16px;flex-shrink:0;background:rgba(7,24,40,.95);border-top:1px solid rgba(0,229,255,.1);display:flex;flex-direction:column;gap:9px;position:relative;z-index:10">
     <button class="hex-solid" style="width:100%;padding:15px;font-size:13px" onclick="resetOfficer()">⬡ NUEVA INSPECCIÓN</button>
-    <button class="hex-btn" style="width:100%;padding:11px;font-size:10px" onclick="goSelect()"><span>← VOLVER AL INICIO</span></button>
+    <button onclick="window.location.href='historial.html'"
+      style="width:100%;padding:12px;border-radius:6px;background:rgba(255,179,0,.1);
+        border:1px solid rgba(255,179,0,.3);color:var(--amber);font-family:var(--head);
+        font-size:11px;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:all .18s"
+      onmouseover="this.style.background='rgba(255,179,0,.2)'" onmouseout="this.style.background='rgba(255,179,0,.1)'">
+      📋 VER MI HISTORIAL</button>
+    <button class="hex-btn" style="width:100%;padding:10px;font-size:10px" onclick="goSelect()"><span>← INICIO</span></button>
   </div>
 </div>
 
@@ -2222,8 +2286,8 @@ function saveApiKey(key) {
 
 // ── Settings screen ──────────────────────────────────────────
 function goSettings() {
-  loadSettingsFields();
-  showScreen("s-settings");
+  // Config is now centralized in login.html
+  window.location.href = "login.html";
 }
 
 function updateApiKeyStatus(key) {
@@ -2996,7 +3060,7 @@ function buildDoneScreen() {
   else if(enEl) enEl.style.display="none";
 }
 
-function resetOfficer() { state.currentFlight=null; state.zones={}; state.elapsed=0; state.opBadges=[]; goOfficer(); }
+function resetOfficer() { state.currentFlight=null; state.zones={}; state.elapsed=0; state.opBadges=[]; state.earlyFinishReason=null; state.rampCheckpoints={}; state.rampIncidents=[]; goOfficer(); }
 
 // ═══ ADMIN ════════════════════════════════════════════════
 function adminTab(btn, tab) {
