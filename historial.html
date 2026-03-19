@@ -182,6 +182,9 @@ input[type=date],select{min-width:0}
     <button class="btn-sm" onclick="loadAll()" title="Actualizar datos">↺</button>
     <a href="login.html" class="btn-sm" style="text-decoration:none;color:var(--amber);
       border-color:rgba(255,179,0,.25)" title="Configuración">⚙</a>
+    <button class="btn-sm" onclick="logout()"
+      style="color:var(--red);border-color:rgba(255,23,68,.25)"
+      title="Cerrar sesión">⏻</button>
   </div>
 </div>
 
@@ -281,6 +284,10 @@ input[type=date],select{min-width:0}
     <div class="bt-icon">⚙</div>
     <div class="bt-label">CONFIG</div>
   </button>
+  <button class="bottom-tab" onclick="logout()" style="color:var(--red)">
+    <div class="bt-icon" style="font-size:16px">⏻</div>
+    <div class="bt-label" style="color:var(--red)">SALIR</div>
+  </button>
 </div>
 
 <script>
@@ -290,6 +297,13 @@ let allRecords   = { inspeccion:[], control:[], rampa:[] };
 let filtered     = [];
 
 // ── INIT ──────────────────────────────────────────────────────
+function logout(){
+  if(!confirm("¿Cerrar sesión?")) return;
+  localStorage.removeItem("avsec_user");
+  localStorage.removeItem("avsec_login_time");
+  window.location.href = "login.html";
+}
+
 window.onload = () => {
   const saved = localStorage.getItem("avsec_user");
   if(!saved){ window.location.href="login.html"; return; }
@@ -610,7 +624,7 @@ function resumeOperation(group){
     recoveredAt:new Date().toISOString(),
   };
   localStorage.setItem("avsec_recovery",JSON.stringify(recovery));
-  window.location.href="index.html?recover=1";
+  window.location.href="index?recover=1";
 }
 
 // ── HELPERS ───────────────────────────────────────────────────
